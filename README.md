@@ -1,4 +1,4 @@
-LeapDemo
+LeapJS and SignalR Demo
 ========
 
 A basic demo using LeapJS and SignalR
