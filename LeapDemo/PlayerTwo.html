@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Player Two</title>
+</head>
+<body>
+    <script src="/Scripts/jquery-1.9.1.min.js" ></script>
+    <script src="/Scripts/jquery.signalR-1.1.2.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script type="text/javascript">
+        $(function () {
+            var hub = $.connection.demoHub;
+            
+            $.connection.hub.start().done(function () {
+                $('#status').css('color', '#0000ff');
+                $('#status').text('Connection Ready!!');
+            });
+            
+            hub.client.recieveCircle = function() {
+                $('#circle-label').text('Circle blud!');
+                $('#circle-label').fadeIn('slow', function () {
+                    $('#circle-label').fadeOut('slow');
+                });
+            };
+            
+            hub.client.recieveData = function (frameData) {
+                $('#test').text(frameData);
+            };
+        });
+    </script>
+    <span id="status" style="font-size:22px; color:#ff0000">Connection Not Made!</span>
+    <br/>
+    <br/>
+    <span id="circle-label" style="font-size:30px; display:none; color:#00ff00"></span>
+    <br/>
+    <br/>
+    <span id="test" style="font-size:10px;"></span>
+</body>
+</html>

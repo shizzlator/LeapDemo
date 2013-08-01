@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Player One</title>
+    <script src="/Scripts/leapjs.js"></script>
+    <script>
+        var controller = new Leap.Controller({enableGestures: true});
+    </script>
+  </head>
+    <body>
+        <script src="/Scripts/jquery-1.9.1.min.js" ></script>
+        <script src="/Scripts/jquery.signalR-1.1.2.js"></script>
+        <script src="/signalr/hubs"></script>
+        <script type="text/javascript">
+            var hub = $.connection.demoHub;
+            $.connection.hub.start().done(function () {
+                $('#status').css('color', 'blue');
+                $('#status').text('Connection Ready!!');
+                controller.loop(function (frame) {
+                    var jsonString = JSON.stringify(frame.data);
+                    hub.server.send(jsonString);
+                    $('#test').text(jsonString);
+                });
+            });
+        </script>
+        <span id="status" style="font-size:22px; color:red">Connection Not Made!</span>
+        <br/>
+        <br/>
+        <span id="test" style="font-size:22px;">0</span>
+    </body>
+</html>
