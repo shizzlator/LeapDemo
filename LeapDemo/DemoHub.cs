@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNet.SignalR;
+﻿using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 
 namespace LeapDemo
@@ -17,6 +15,8 @@ namespace LeapDemo
             Clients.All.recieveData(frameData);
             var frame = JsonConvert.DeserializeObject<dynamic>(frameData);
 
+            //TODO: should I remove the elses? > or < accurate?
+            //TODO: Would this code be better off on the client???
             if (FrameContainsRockGesture(frame))
             {
                 RecordRock();
