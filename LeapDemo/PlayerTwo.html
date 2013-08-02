@@ -26,6 +26,27 @@
             hub.client.recieveData = function (frameData) {
                 $('#test').text(frameData);
             };
+
+            hub.client.recieveRock = function() {
+                $('#circle-label').text('Rock!');
+                $('#circle-label').fadeIn('slow', function() {
+                    $('#circle-label').fadeOut('slow');
+                });
+            };
+            
+            hub.client.recieveScissors = function () {
+                $('#circle-label').text('Scissors!');
+                $('#circle-label').fadeIn('slow', function () {
+                    $('#circle-label').fadeOut('slow');
+                });
+            };
+            
+            hub.client.recievePaper = function () {
+                $('#circle-label').text('Paper!');
+                $('#circle-label').fadeIn('slow', function () {
+                    $('#circle-label').fadeOut('slow');
+                });
+            };
         });
     </script>
     <span id="status" style="font-size:22px; color:#ff0000">Connection Not Made!</span>
