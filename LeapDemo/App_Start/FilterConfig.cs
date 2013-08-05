@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace LeapDemo
+namespace LeapDemo.App_Start
 {
     public class FilterConfig
     {

@@ -13,79 +13,18 @@ namespace LeapDemo
         public void Send(string frameData)
         {
             Clients.All.recieveData(frameData);
-            var frame = JsonConvert.DeserializeObject<dynamic>(frameData);
-
-            //TODO: should I remove the elses? > or < accurate?
-            //TODO: Would this code be better off on the client???
-            if (FrameContainsRockGesture(frame))
-            {
-                RecordRock();
-            }
-            else if(FrameContainsScissorsGesture(frame))
-            {
-                RecordScissors();
-            }
-            else if (FrameContainsPaperGesture(frame))
-            {
-                RecordPaper();
-            }
         }
 
-        private static bool FrameContainsPaperGesture(dynamic frame)
+        public void SendGesture(string gestureData)
         {
-            return frame.hands.Count == 1 && frame.pointables.Count == 5;
-        }
+            var gesture = JsonConvert.DeserializeObject<dynamic>(gestureData).gesture;
 
-        private static bool FrameContainsScissorsGesture(dynamic frame)
-        {
-            return frame.hands.Count == 1 && frame.pointables.Count == 2;
-        }
-
-        private static bool FrameContainsRockGesture(dynamic frame)
-        {
-            return frame.hands.Count == 1 && frame.pointables.Count == 0;
-        }
-
-        public void RecordRock()
-        {
-            lock (this)
-            {
-                if (RockCount == Threshold)
-                {
-                    Clients.All.recieveRock();
-                    RockCount = 0;
-                }
-                else
-                    RockCount++;
-            }   
-        }
-
-        public void RecordPaper()
-        {
-            lock (this)
-            {
-                if (PaperCount == Threshold)
-                {
-                    Clients.All.recievePaper();
-                    PaperCount = 0;
-                }
-                else
-                    PaperCount++;
-            }
-        }
-
-        public void RecordScissors()
-        {
-            lock (this)
-            {
-                if (ScissorsCount == Threshold)
-                {
-                    Clients.All.recieveScissors();
-                    ScissorsCount = 0;
-                }
-                else
-                    ScissorsCount++;    
-            }
+            if(gesture == "rock")
+                Clients.All.recieveRock();
+            if (gesture == "paper")
+                Clients.All.recievePaper();
+            if (gesture == "scissors")
+                Clients.All.recieveScissors();
         }
     }
 }
