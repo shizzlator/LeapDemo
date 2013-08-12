@@ -5,6 +5,21 @@ namespace LeapDemo
 {
     public class DemoHub : Hub
     {
+        private const int Threshold = 200;
+        public static int RockCount;
+        public static int PaperCount;
+        public static int ScissorsCount;
+
+        public void SendToTwo(string frameData)
+        {
+            Clients.All.recieveFromOne(frameData);
+        }
+
+        public void SendToOne(string frameData)
+        {
+            Clients.All.recieveFromTwo(frameData);
+        }
+
         public void Send(string frameData)
         {
             Clients.All.recieveData(frameData);
